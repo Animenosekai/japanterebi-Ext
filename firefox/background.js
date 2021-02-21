@@ -12,7 +12,6 @@ function beforeSendHeaders(request) {
 
 function headersReceived(request) {
     var initiator = request.initiator || request.documentUrl || request.originUrl || request.url;
-    console.log(initiator)
     if ( sites.includes(initiator) ) {
         var responseHeaders = request.responseHeaders.filter(e => e.name.toLowerCase() !== "access-control-allow-origin" && e.name.toLowerCase() !== "access-control-allow-methods");
         responseHeaders.push({"name": "Access-Control-Allow-Origin", "value": '*'});

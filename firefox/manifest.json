@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Japan Terebi",
-    "version": "1.0",
+    "version": "1.0.1",
     "description": "An extension to enjoy Japan Terebi even more!",
     "icons": {
         "16": "images/_jt_icon_16.png",
