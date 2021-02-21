@@ -1,6 +1,6 @@
 var browser = browser || chrome
 var headers = new Map()
-const sites = ["http://127.0.0.1:5501", "https://japanterebi.netlify.app"]
+const sites = ["http://127.0.0.1:5501", "https://japanterebi.netlify.app", "https://japanterebi.netlify.app/", "https://japanterebi.netlify.app/#"]
 
 function beforeSendHeaders(request) {
     var initiator = request.initiator || request.documentUrl || request.originUrl || request.url;
@@ -12,6 +12,7 @@ function beforeSendHeaders(request) {
 
 function headersReceived(request) {
     var initiator = request.initiator || request.documentUrl || request.originUrl || request.url;
+    console.log(initiator)
     if ( sites.includes(initiator) ) {
         var responseHeaders = request.responseHeaders.filter(e => e.name.toLowerCase() !== "access-control-allow-origin" && e.name.toLowerCase() !== "access-control-allow-methods");
         responseHeaders.push({"name": "Access-Control-Allow-Origin", "value": '*'});
@@ -27,11 +28,11 @@ function headersReceived(request) {
 browser.webRequest.onBeforeSendHeaders.addListener(
     beforeSendHeaders,
     { "urls": [ "http://*/*", "https://*/*" ] },
-    [ "blocking", "requestHeaders", "extraHeaders" ]
+    [ "blocking", "requestHeaders" ]
 )
 
 browser.webRequest.onHeadersReceived.addListener(
     headersReceived,
     { "urls": [ "http://*/*", "https://*/*" ] },
-    [ "blocking", "responseHeaders", "extraHeaders" ]
+    [ "blocking", "responseHeaders" ]
 )
